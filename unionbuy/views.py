@@ -1,5 +1,5 @@
 import base64
-import zbarlight
+# import zbarlight
 from PIL import Image
 
 from django.shortcuts import render
