@@ -1,5 +1,33 @@
+{% extends 'layout.html' %}
+{% block head %}
+        <style>
+        * {
+            font-weight: normal;
+            font-size: 14px;
+        }
+        h1 {
+            text-align: center;
+            color: rgb(255, 68, 1);
+        }
+        div {
+            text-align: center;
+        }
+        button {
+            background: rgb(255, 68, 1);
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            color: white;
+            padding: 1em;
+        }
+
+        </style>
+{% endblock %}
+{% block body %}
+<h1>买到兔🐰</h1>
 <form method="POST" enctype="multipart/form-data">
 	{{ form.as_p }}
 	{% csrf_token %}
-	<button type="submit">生成</button>
+    <div><button type="submit">生成</button></div>
 </form>
+{% endblock %}

@@ -1,9 +1,6 @@
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends 'layout.html' %}
+{% block head %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-    <title>买到兔🐰</title>
     <style>
         * {
             font-weight: normal;
@@ -40,8 +37,9 @@
             background: #19865C;
         }
     </style>
-</head>
-<body>
+{% endblock %}
+
+{% block body %}
 <h1>买到兔🐰</h1>
 <h2>长按 &gt; 全选 &gt; 复制 &gt; 进入购物APP</h2>
 <h3>复制，进入购物APP &nbsp; <span id="code">{{ code }}</span></h3>
@@ -55,5 +53,4 @@
             btn.className = 'success';
         });
     </script>
-</body>
-</html>
+{% endblock %}
