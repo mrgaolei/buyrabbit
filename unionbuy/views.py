@@ -39,6 +39,7 @@ def home(request):
             # print('QR codes: %s' % codes)
 
             response = HttpResponse(content_type="image/jpeg")
+            image = image.convert("RGB")
             image.save(response, "JPEG")
             return response
             # return HttpResponse(form.cleaned_data['share_image'].read(), content_type="image/jpeg")
