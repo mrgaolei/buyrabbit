@@ -1,0 +1,57 @@
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <title>买到兔🐰</title>
+    <style>
+        * {
+            font-weight: normal;
+            font-size: 14px;
+        }
+        h1 {
+            text-align: center;
+            color: rgb(255, 68, 1);
+        }
+        h2 {
+            background: rgb(255, 68, 1);
+            color: white;
+            width: 90%;
+            text-align: center;
+            margin: 0 auto -25px;
+        }
+        h3 {
+            border: 1px dashed rgb(255, 68, 1);
+            text-align: center;
+            padding: 2em;
+        }
+        div {
+            text-align: center;
+        }
+        button {
+            background: rgb(255, 68, 1);
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            color: white;
+            padding: 1em;
+        }
+        .success {
+            background: #19865C;
+        }
+    </style>
+</head>
+<body>
+<h1>买到兔🐰</h1>
+<h2>长按 &gt; 全选 &gt; 复制 &gt; 进入购物APP</h2>
+<h3>复制，进入购物APP &nbsp; <span id="code">{{ code }}</span></h3>
+
+<div><button id="btn-copy" data-clipboard-target="#code">一键复制</button></div>
+    <script>
+        var clipboard = new ClipboardJS('#btn-copy');
+        clipboard.on('success', function(e) {
+            btn = document.getElementById('btn-copy');
+            btn.innerText = '复制成功';
+            btn.className = 'success';
+        });
+    </script>
+</body>
+</html>
