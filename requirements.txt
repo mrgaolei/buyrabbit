@@ -5,6 +5,5 @@ python-decouple==3.1
 pytz==2018.5
 pillow==5.2.0
 gunicorn==19.9.0
-python-decouple==3.1
 dj-database-url==0.3.0
 qrcode==6.0
