@@ -1,7 +1,9 @@
 import base64
+import re
 # import zbarlight
 from PIL import Image
 
+from django.urls import reverse
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseBadRequest
 
@@ -9,9 +11,17 @@ from .forms import TransForm
 
 
 def home(request):
-    import re
-    from django.urls import reverse
+    
     form = TransForm()
+    
+    return render(request, 'home.html', {'form': form})
+
+
+def search(request, q):
+    return render(request, 'search.html')
+
+
+def unicon_image(request):
     if request.method == 'POST':
         form = TransForm(request.POST, request.FILES)
         if form.is_valid():
@@ -52,12 +62,6 @@ def home(request):
             image = image.convert("RGB")
             image.save(response, "JPEG")
             return response
-            # return HttpResponse(form.cleaned_data['share_image'].read(), content_type="image/jpeg")
-    return render(request, 'home.html', {'form': form})
-
-
-def search(request, q):
-    return render(request, 'search.html')
 
 
 def code_show(request, code):

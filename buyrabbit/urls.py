@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', ub_views.home, name='home'),
     path('unionbuy/', include('unionbuy.urls')),
-    path('code_show/<str:code>/', ub_views.code_show, name='code_show')
+    path('code_show/<str:code>/', ub_views.code_show, name='code_show'),
+    path('unicon_image/', ub_views.unicon_image, name='unicon_image'),
 ]

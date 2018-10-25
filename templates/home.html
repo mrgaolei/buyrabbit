@@ -25,7 +25,7 @@
 {% endblock %}
 {% block body %}
 <h1>买到兔🐰</h1>
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" action="{% url 'unicon_image' %}" enctype="multipart/form-data">
 	{{ form.as_p }}
 	{% csrf_token %}
     <div><button type="submit">生成</button></div>
