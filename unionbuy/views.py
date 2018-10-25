@@ -23,17 +23,27 @@ def home(request):
             url = f"http://{request.get_host()}{url}"
             print(url)
             # 生成url二维码
-            import qrcode
-            qr = qrcode.QRCode(box_size=7, border=2)
-            qr.add_data(url)
-            img = qr.make_image()
-            response = HttpResponse(content_type="image/jpeg")
-
-            img.save(response, "JPEG")
-            # return response
+            
             # 再处理图片
             image = Image.open(form.cleaned_data['share_image'])
-            image.paste(img, [575, 945])
+            print(image.size)
+            if image.size[0] == 800:
+                # iPhone X size
+                box = [495, 840]
+                box_size = 7
+                border = 1
+            else:
+                # Android size
+                box = [575, 945]
+                box_size = 7
+                border = 2
+
+            import qrcode
+            qr = qrcode.QRCode(box_size=box_size, border=border)
+            qr.add_data(url)
+            img = qr.make_image()
+
+            image.paste(img, box)
             image.load()
             # codes = zbarlight.scan_codes(['qrcode'], image)
             # print('QR codes: %s' % codes)
