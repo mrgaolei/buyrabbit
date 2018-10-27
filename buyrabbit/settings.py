@@ -27,7 +27,9 @@ SECRET_KEY = 'z4bs62-3gjtlee9j_x@v^t16__qhlo7ugh5-l6hf9*6x3h%6c1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('BR_DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'mdt.fmit.cn',
+]
 
 
 # Application definition
