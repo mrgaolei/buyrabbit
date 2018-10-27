@@ -69,4 +69,4 @@ def code_show(request, code):
         code = str(base64.b64decode(code), 'utf-8')
     except ValueError:
         return HttpResponseBadRequest("编码错误")
-    return render(request, 'code_show.html', {'code': code})
+    return render(request, 'code_show.html', {'code': f"₴{code}₴"})

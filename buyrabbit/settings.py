@@ -118,3 +118,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+QINIU_ACCESS_KEY = config('QINIU_ACCESS_KEY')
+QINIU_SECRET_KEY = config('QINIU_SECRET_KEY')
+QINIU_BUCKET_NAME = config('QINIU_BUCKET_NAME')
+QINIU_BUCKET_DOMAIN = config('QINIU_BUCKET_DOMAIN')
+
+DEFAULT_FILE_STORAGE = 'qiniustorage.backends.QiniuMediaStorage'
