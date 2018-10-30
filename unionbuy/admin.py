@@ -11,7 +11,7 @@ from unionbuy.models import Share
 @admin.register(Share)
 class ShareAdmin(admin.ModelAdmin):
     readonly_fields = ('creator', 'code')
-    list_display = ('text', 'code', 'image', 'creator', 'created')
+    list_display = ('__str__', 'code', 'image', 'creator', 'created')
     search_fields = ('text', '=code')
 
     def has_delete_permission(self, request, obj=None):

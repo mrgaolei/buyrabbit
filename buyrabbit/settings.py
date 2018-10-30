@@ -28,6 +28,7 @@ SECRET_KEY = 'z4bs62-3gjtlee9j_x@v^t16__qhlo7ugh5-l6hf9*6x3h%6c1'
 DEBUG = config('BR_DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = [
+    '127.0.0.1',
     'mdt.fmit.cn',
 ]
 

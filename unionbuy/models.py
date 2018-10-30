@@ -1,3 +1,5 @@
+import re
+
 from django.db import models
 from django.conf import settings
 
@@ -26,7 +28,7 @@ class Share(DateTimeModel):
     image = models.ImageField("分享图")
 
     def __str__(self):
-        return self.text
+        return re.split(r'\s+', self.text)[0]
 
     def get_absolute_url(self):
         import base64

@@ -18,6 +18,8 @@ from django.urls import include, path
 
 from unionbuy import views as ub_views
 
+admin.site.site_header = "买到兔🐰后台管理"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', ub_views.home, name='home'),
