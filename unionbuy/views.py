@@ -37,7 +37,7 @@ def unicon_image(request):
             # 再处理图片
             image = Image.open(form.cleaned_data['share_image'])
             print(image.size)
-            if image.size[0] == 800:
+            if image.size[0] in [800, 1000]:
                 # iPhone X size
                 box = [495, 840]
                 box_size = 7
