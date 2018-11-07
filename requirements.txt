@@ -7,4 +7,4 @@ pillow==5.2.0
 gunicorn==19.9.0
 dj-database-url==0.3.0
 qrcode==6.0
-django-qiniu-storage
+django-qiniu-storage==2.3.1

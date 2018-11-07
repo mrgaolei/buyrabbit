@@ -5,7 +5,21 @@ from django.contrib import admin
 from django.core.files.base import ContentFile
 from django.utils.six import BytesIO
 
-from unionbuy.models import Share
+from unionbuy.models import Share, ThirdAuth
+
+
+@admin.register(ThirdAuth)
+class ThirdAuth(admin.ModelAdmin):
+    list_display = ('user', 'third', 'third_uid', 'expires_in', 'created')
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return [f.name for f in self.model._meta.fields]
+        else:
+            return self.readonly_fields
 
 
 @admin.register(Share)

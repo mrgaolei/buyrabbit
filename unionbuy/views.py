@@ -1,13 +1,26 @@
 import base64
 import re
+import requests
 # import zbarlight
+
 from PIL import Image
+from datetime import timedelta
+from urllib import parse
 
+from django.utils import timezone
 from django.urls import reverse
-from django.shortcuts import render
+from django.conf import settings
 from django.http import HttpResponse, HttpResponseBadRequest
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from django.contrib.auth.models import User
 
+from unionbuy.models import ThirdAuth
 from .forms import TransForm
+
+
+client_id = settings.TAOBAO_CLIENT_ID
+client_secret = settings.TAOBAO_CLIENT_SECRET
 
 
 def home(request):
@@ -70,3 +83,41 @@ def code_show(request, code):
     except ValueError:
         return HttpResponseBadRequest("编码错误")
     return render(request, 'code_show.html', {'code': f"₴{code}₴"})
+
+
+def third_auth(request):
+    uri = request.build_absolute_uri(reverse('auth_callback'))
+    url = f"https://oauth.taobao.com/authorize?response_type=code&client_id={client_id}&redirect_uri={uri}&state=&view=wap"
+    return redirect(url)
+
+
+def auth_back(request):
+    code = request.GET['code']
+    url = 'https://oauth.taobao.com/token'
+    data = {
+        'client_id': client_id,
+        'client_secret': client_secret,
+        'grant_type': 'authorization_code',
+        'code': code,
+        'redirect_uri': request.build_absolute_uri(reverse('auth_callback')),
+        'view': 'wap',
+    }
+    r = requests.post(url, data=data)
+    if r.status_code == 200:
+        resp = r.json()
+        try:
+            third = ThirdAuth.objects.get(third=ThirdAuth.THIRD_TAOBAO, third_uid=resp['taobao_user_id'])
+            user = third.user
+        except ThirdAuth.DoesNotExist:
+            user = User.objects.create_user(parse.unquote(resp['taobao_user_nick']), **{'is_staff': True})
+            ThirdAuth.objects.create(
+                user=user,
+                third=ThirdAuth.THIRD_TAOBAO,
+                third_uid=resp['taobao_user_id'],
+                access_token=resp['access_token'],
+                expires_in=timezone.now() + timedelta(seconds=int(resp['expires_in'])),
+            )
+        login(request, user)
+        return redirect('/admin/')
+    else:
+        return HttpResponseBadRequest(r.text)

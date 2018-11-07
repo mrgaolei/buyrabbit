@@ -42,3 +42,20 @@ class Share(DateTimeModel):
         verbose_name_plural = verbose_name
         ordering = ('-created',)
         unique_together = (('site', 'code'),)
+
+
+class ThirdAuth(DateTimeModel):
+    THIRD_TAOBAO = 1
+    THIRD = (
+        (THIRD_TAOBAO, "淘宝"),
+    )
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    third = models.SmallIntegerField("类型", choices=THIRD, default=THIRD_TAOBAO)
+    third_uid = models.IntegerField("第三方uid")
+    access_token = models.CharField("AccessToken", max_length=200)
+    expires_in = models.DateTimeField("过期时间")
+
+    class Meta:
+        verbose_name = "第三方认证"
+        verbose_name_plural = verbose_name
+        unique_together = (('third', 'third_uid'),)
